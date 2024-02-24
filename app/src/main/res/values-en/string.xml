@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY spiderman "Spider-man: Across the Spider-Verse">
+    <!ENTITY scarface "Scarface">
+    <!ENTITY backFuture "Back to the Future">
+    ]>
+
+<resources>
+    <string name="app_name">FilmLibrary</string>
+
+    <string name="CreatedBy">Created by Manuel Gómez Cámara</string>
+    <string name="GoWeb">Got to Website</string>
+    <string name="GetSup">Get support</string>
+    <string name="GoBack">Go Back</string>
+    <string name="NotImplemented">Functionality not implemented</string>
+
+
+    <string name="SeeSpiderman">See &spiderman;</string>
+    <string name="SeeScarface">See &scarface;</string>
+    <string name="SeeBackFurute">Ver &backFuture;</string>
+    <string name="Spiderman">&spiderman;</string>
+    <string name="Scarface">&scarface;</string>
+    <string name="About">About</string>
+    <string name="Back_to_the_future">&backFuture;</string>
+
+    <string name="FilmData">Film\'s Data</string>
+    <string name="SeeIMDB">See IMDB</string>
+    <string name="RelatedFilm">Related film</string>
+    <string name="EditFilm">Edit film</string>
+    <string name="BacktoPrincipal">Back to home</string>
+
+
+    <string name="EditingFilm">Editing Film</string>
+    <string name="Save">Save</string>
+    <string name="Cancel">Cancel</string>
+
+    <string name="Edited">Edited</string>
+
+    <string name="Director">Director:</string>
+    <string name="Directorsname">Director\'s name</string>
+    <string name="Year">Year:</string>
+    <string name="YearsValue">1994</string>
+
+    <string name="GenreAndFormat">Genre, Format </string>
+
+
+    <string name="Annotations">Annotations</string>
+
+    <string name="SpidermanAnnotations"> Animation</string>
+    <string name="ScarfaceAnnotations"> Mafia</string>
+    <string name="Back_to_the_future_annotations">Time Travel</string>
+
+
+    <!-- Genres -->
+    <!-- *********************** -->
+    <!-- *********************** -->
+
+    <string name="Action"> Action</string>
+    <string name="Drama"> Drama</string>
+    <string name="Comedy"> Comedy</string>
+    <string name="Horror"> Horror</string>
+    <string name="SciFi"> Sci-Fi</string>
+
+    <!-- *********************** -->
+    <!-- *********************** -->
+    <!-- *********************** -->
+
+    <!-- Formats -->
+    <!-- *********************** -->
+    <!-- *********************** -->
+
+    <string name="DVD"> DVD</string>
+    <string name="Bluray"> Blu-ray</string>
+    <string name="Digital"> Digital</string>
+
+    <!-- *********************** -->
+    <!-- *********************** -->
+    <!-- *********************** -->
+
+    <string name="Genre">Genre</string>
+    <string name="Format">Format</string>
+
+    <string name="TakePhoto">Take Photo</string>
+    <string name="SelectImage">Select Image</string>
+
+    <string name="FilmTitle">Film\'s Title</string>
+    <string name="LinktoIMDB">Link to IMDB</string>
+
+    <string name="PermissionRequiredExplain">This app requires CAMERA permission to work as expected</string>
+    <string name="PermissionRequest">Permission Request</string>
+    <string name="PermissionRequired">Permission Required</string>
+    <string name="FeatureUnavailable">This feature is unavailable because this feature requires permission that you have denied.
+                        Please allow Camera permission from settings to proceed further</string>
+
+    <string name="Ok">Ok</string>
+
+    <string name="AddFilm">Add film</string>
+
+    <string name="FilmDoesntSelect">Película no seleccionada</string>
+    <string name="SelectFilm">Selecciona una película</string>
+
+
+
+</resources>

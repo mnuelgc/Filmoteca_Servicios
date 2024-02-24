@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY spiderman "Spider-man: Cruzando el Multiverso"><!ENTITY scarface "El precio del poder"><!ENTITY backFuture "Regreso al futuro">]>
+
+<resources>
+    <string name="app_name">Filmoteca</string>
+
+    <string name="CreatedBy">Creado por Manuel Gómez Cámara</string>
+    <string name="GoWeb">Ir al sitio Web</string>
+    <string name="GetSup">Obtener soporte</string>
+    <string name="GoBack">Volver</string>
+    <string name="NotImplemented">Funcionalidad no implementada</string>
+
+
+    <string name="SeeSpiderman">Ver &spiderman;</string>
+    <string name="SeeScarface">Ver &scarface;</string>
+    <string name="SeeBackFurute">Ver &backFuture;</string>
+    <string name="Spiderman">&spiderman;</string>
+    <string name="Scarface">&scarface;</string>
+    <string name="Back_to_the_future">&backFuture;</string>
+
+
+    <string name="About">Acerca de</string>
+
+    <string name="FilmData">Datos de la película</string>
+    <string name="SeeIMDB">Ver IMDB</string>
+    <string name="RelatedFilm">Película relacionada</string>
+    <string name="EditFilm">Editar película</string>
+    <string name="BacktoPrincipal">Volver a la principal</string>
+
+
+    <string name="EditingFilm">Editando Pelicula</string>
+    <string name="Save">Guardar</string>
+    <string name="Cancel">Cancelar</string>
+
+    <string name="Edited">Editado</string>
+
+    <string name="Director">Director:</string>
+    <string name="Directorsname">Nombre del director</string>
+    <string name="Year">Año:</string>
+    <string name="YearsValue">1994</string>
+
+    <string name="GenreAndFormat">Genero, Formato </string>
+
+    <string name="Annotations">Comentarios</string>
+
+    <string name="SpidermanAnnotations">Animación</string>
+    <string name="ScarfaceAnnotations">Mafia</string>
+    <string name="Back_to_the_future_annotations">Viaje temporal</string>
+
+
+    <!-- Generos -->
+    <!-- *********************** -->
+    <!-- *********************** -->
+
+    <string name="Genre">Genero</string>
+    <string name="Format">Format</string>
+
+    <string name="Action">Acción</string>
+    <string name="Drama">Drama</string>
+    <string name="Comedy">Comedia</string>
+    <string name="Horror">Terror</string>
+    <string name="SciFi">Sci-Fi</string>
+
+    <!-- *********************** -->
+    <!-- *********************** -->
+
+    <!-- Formats -->
+    <!-- *********************** -->
+
+    <string name="DVD">DVD</string>
+    <string name="Bluray">Blu-ray</string>
+    <string name="Digital">Digital</string>
+
+    <!-- *********************** -->
+    <!-- *********************** -->
+
+    <string name="TakePhoto">Capturar Fotografía</string>
+    <string name="SelectImage">Seleccionar imagen</string>
+
+    <string name="FilmTitle">Título de la película</string>
+    <string name="LinktoIMDB">Enlace a IMDB</string>
+
+
+    <string-array name="Genres">
+        <item>Acción</item>
+        <item>Drama</item>
+        <item>Comedia</item>
+        <item>Terror</item>
+        <item>Sci-Fi</item>
+    </string-array>
+
+    <string-array name="Formats">
+        <item>DVD</item>
+        <item>Blu-ray</item>
+        <item>Digital</item>
+    </string-array>
+
+    <string name="PermissionRequiredExplain">Esta app necesita los permisos de CAMARA para funcionar adecuadamanete</string>
+    <string name="PermissionRequest">Solicitud de permisos</string>
+    <string name="PermissionRequired">Permiso requerido</string>
+    <string name="FeatureUnavailable">Esta funcionalidad no está disponeible porque no se han aceptado los permisos necesarios para ello.
+        Por favor vaya a ajuste y acepte los permisos de cámara </string>
+
+
+    <string name="Ok">Entendido</string>
+
+    <string name="AddFilm">Añadir película</string>
+
+    <string name="FilmDoesntSelect">Película no seleccionada</string>
+    <string name="SelectFilm">Selecciona una película</string>
+
+</resources>

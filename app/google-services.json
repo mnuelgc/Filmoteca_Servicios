@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1059304735775",
+    "project_id": "filmoteca-fa8eb",
+    "storage_bucket": "filmoteca-fa8eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059304735775:android:ebfb57fdb365f852fe812a",
+        "android_client_info": {
+          "package_name": "es.ua.eps.filmoteca"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFMya9tUiRdYmIgxPppD_O4Acwt633H94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
