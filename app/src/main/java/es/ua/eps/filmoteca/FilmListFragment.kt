@@ -1,8 +1,10 @@
 package es.ua.eps.filmoteca
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import android.view.ActionMode
 import androidx.fragment.app.Fragment
@@ -17,6 +19,8 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.CheckBox
 import android.widget.ListView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.ListFragment
 import es.ua.eps.filmoteca.databinding.FragmentFilmDataBinding
 import es.ua.eps.filmoteca.databinding.FragmentFilmListBinding
@@ -35,6 +39,8 @@ private const val ARG_PARAM2 = "param2"
 class FilmListFragment : ListFragment() {
     var callback : OnItemSelectedListener? = null
     public lateinit var adapter : FilmsAdapter
+    private val MOVIE_RESULT = 1
+    private val firebaseService : MyFirebaseMessagingService = MyFirebaseMessagingService()
 
 
     interface OnItemSelectedListener {
@@ -44,6 +50,12 @@ class FilmListFragment : ListFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+
+    private val startForResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult -> onActivityResult(MOVIE_RESULT, result.resultCode, result.data) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -228,6 +240,36 @@ class FilmListFragment : ListFragment() {
     {
         val film = Film(context)
         FilmDataSource.films.add(film)
-        adapter.notifyDataSetChanged()
+
+        val intentCreate = Intent(activity, FilmCreateActivity::class.java)
+
+        val positionFilm = FilmDataSource.films.size - 1
+        intentCreate.putExtra(FilmDataFragment.EXTRA_FILM_ID, positionFilm)
+
+        if (Build.VERSION.SDK_INT >= 30) {
+            startForResult.launch(intentCreate)
+        } else {
+            @Suppress("DEPRECATION")
+            startActivityForResult(intentCreate, MOVIE_RESULT)
+        }
+
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        @Suppress("DEPRECATION")
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            MOVIE_RESULT -> if (resultCode == Activity.RESULT_OK) {
+                val film: Film = FilmDataSource.films[FilmDataSource.films.size - 1]
+                adapter.notifyDataSetChanged()
+        //        firebaseService.sendNotification("Hola gente");
+
+            }
+            else{
+                FilmDataSource.films.removeLast();
+            }
+        }
     }
 }
