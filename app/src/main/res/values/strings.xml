@@ -107,5 +107,6 @@
 
     <string name="FilmDoesntSelect">Película no seleccionada</string>
     <string name="SelectFilm">Selecciona una película</string>
+    <string name="Sing_in">Acceder</string>
 
 </resources>

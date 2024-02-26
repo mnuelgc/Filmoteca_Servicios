@@ -214,6 +214,11 @@ class FilmListFragment : ListFragment() {
                 AddNewFilmToList()
                 return true
             }
+            R.id.sing_in ->{
+                val intent = Intent(activity, User_Sing_In_Activity::class.java)
+                startActivity(intent)
+                return true
+            }
             R.id.about ->{
                 val intent = Intent(activity, AboutActivity::class.java)
                 startActivity(intent)
