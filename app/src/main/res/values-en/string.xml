@@ -101,5 +101,9 @@
 
     <string name="Sing_in">Sing In</string>
 
+    <string name="nameLayer">Name:</string>
+    <string name="emailLayer">E-mail:</string>
+    <string name="userData">User Data</string>
+    <string name="SingOut">User Data</string>
 
 </resources>
