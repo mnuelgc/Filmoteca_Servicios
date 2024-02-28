@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import es.ua.eps.filmoteca.databinding.ActivityUserInfoBinding
+import kotlin.system.exitProcess
 
 class UserInfoActivity : AppCompatActivity() {
 
@@ -30,22 +31,25 @@ class UserInfoActivity : AppCompatActivity() {
         val binding = ActivityUserInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
-        var gsc = GoogleSignIn.getClient(this, gso)
+        gsc = GoogleSignIn.getClient(this, gso)
 
         val account : GoogleSignInAccount?= GoogleSignIn
             .getLastSignedInAccount(this)
 
         ///Log(account.givenName.displayName)
 
+        val idTextV = binding.idValue
         val nameTextV = binding.nameValue
         val emailTextV = binding.emailValue
 
         val image = binding.imageView
 
         if (account != null) {
+
+            idTextV?.text = account.id
             nameTextV.text = account.displayName
             emailTextV.text = account.email
 
@@ -55,7 +59,14 @@ class UserInfoActivity : AppCompatActivity() {
         val buttonSingOut = binding.singOut
         buttonSingOut?.setOnClickListener {
             gsc.signOut()
+            goSingIn()
+        }
+
+        val buttonDisconnect = binding.disconnect
+        buttonDisconnect?.setOnClickListener {
+            gsc.revokeAccess()
             finish()
+            finishAffinity()
         }
     }
 
@@ -65,6 +76,13 @@ class UserInfoActivity : AppCompatActivity() {
             finish()
         }
         return super.onOptionsItemSelected(item)
+    }
 
+    private fun goSingIn() {
+
+        val intent = Intent(this, User_Sing_In_Activity::class.java)
+        startActivity(intent)
+
+        finish()
     }
 }

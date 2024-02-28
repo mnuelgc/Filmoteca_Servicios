@@ -74,7 +74,13 @@
             android:exported="false" />
         <activity
             android:name=".User_Sing_In_Activity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.
@@ -92,12 +98,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".FilmEditActivity"
@@ -105,6 +107,7 @@
         <activity
             android:name=".AboutActivity"
             android:exported="false" />
+
     </application>
 
 </manifest>

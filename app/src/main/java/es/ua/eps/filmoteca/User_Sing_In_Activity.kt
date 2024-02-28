@@ -36,9 +36,6 @@ class User_Sing_In_Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_sing_in)
 
-        val actionBar: ActionBar? = (this as AppCompatActivity?)!!.supportActionBar
-        actionBar?.setHomeButtonEnabled(true)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
 
         googleSingIn = findViewById<Button>(R.id.sing_in_Google)
 
@@ -54,7 +51,7 @@ class User_Sing_In_Activity : AppCompatActivity() {
         if (account != null)
         {
             Toast.makeText(this,  account.displayName, Toast.LENGTH_SHORT).show()
-            goUserInfo()
+            goMain()
 
         }
 
@@ -86,7 +83,7 @@ class User_Sing_In_Activity : AppCompatActivity() {
 
                 try {
                     task.getResult((ApiException::class.java))
-                    goUserInfo()
+                    goMain()
                 }catch (e: java.lang.Exception)
                 {
                     Toast.makeText(this, "ERROR " + e.message, Toast.LENGTH_SHORT).show()
@@ -95,9 +92,9 @@ class User_Sing_In_Activity : AppCompatActivity() {
         }
     }
 
-    private fun goUserInfo() {
+    private fun goMain() {
 
-        val intent = Intent(this, UserInfoActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
 
         finish()

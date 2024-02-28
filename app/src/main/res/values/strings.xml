@@ -112,5 +112,5 @@
     <string name="emailLayer">E-mail:</string>
     <string name="userData">Datos del usuario</string>
     <string name="SingOut">Cerrar sesión</string>
-
+    <string name="disconnectAccount">Desconectar cuenta</string>
 </resources>
