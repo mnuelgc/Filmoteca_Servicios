@@ -9,6 +9,8 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 //import androidx.work.OneTimeWorkRequest
 //import androidx.work.WorkManager
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -90,8 +92,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      */
     private fun scheduleJob() {
         // [START dispatch_job]
-  //      val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
-   //     WorkManager.getInstance(this).beginWith(work).enqueue()
+        val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
+        WorkManager.getInstance(this).beginWith(work).enqueue()
         // [END dispatch_job]
     }
 

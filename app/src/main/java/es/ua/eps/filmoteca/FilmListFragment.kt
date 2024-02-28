@@ -22,6 +22,10 @@ import android.widget.ListView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.ListFragment
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.analytics
+import com.google.firebase.analytics.logEvent
 import es.ua.eps.filmoteca.databinding.FragmentFilmDataBinding
 import es.ua.eps.filmoteca.databinding.FragmentFilmListBinding
 import kotlin.ClassCastException
@@ -30,6 +34,8 @@ import kotlin.ClassCastException
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+private lateinit var firebaseAnalytics: FirebaseAnalytics
 
 /**
  * A simple [Fragment] subclass.
@@ -66,6 +72,9 @@ class FilmListFragment : ListFragment() {
         }
         res = resources
         cont = requireContext()
+
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){}
     }
 
     override fun onCreateView(
