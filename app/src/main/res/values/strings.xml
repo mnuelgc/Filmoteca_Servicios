@@ -107,5 +107,10 @@
 
     <string name="FilmDoesntSelect">Película no seleccionada</string>
     <string name="SelectFilm">Selecciona una película</string>
-
+    <string name="Sing_in">Datos del usuario</string>
+    <string name="nameLayer">Nombre:</string>
+    <string name="emailLayer">E-mail:</string>
+    <string name="userData">Datos del usuario</string>
+    <string name="SingOut">Cerrar sesión</string>
+    <string name="disconnectAccount">Desconectar cuenta</string>
 </resources>

@@ -4,6 +4,15 @@
     <item android:id="@+id/addFilm"
         android:title ="@string/AddFilm" />
 
+    <item android:id="@+id/userData"
+        android:title ="@string/Sing_in" />
+
+    <item android:id="@+id/MenuSingOut"
+        android:title ="@string/SingOut" />
+
+    <item android:id="@+id/MenuDisconnect"
+        android:title ="@string/disconnectAccount" />
+
     <item android:id="@+id/about"
         android:title ="@string/About" />
 </menu>
