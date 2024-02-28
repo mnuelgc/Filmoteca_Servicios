@@ -99,11 +99,11 @@
     <string name="FilmDoesntSelect">Película no seleccionada</string>
     <string name="SelectFilm">Selecciona una película</string>
 
-    <string name="Sing_in">Sing In</string>
+    <string name="Sing_in">User Data</string>
 
     <string name="nameLayer">Name:</string>
     <string name="emailLayer">E-mail:</string>
     <string name="userData">User Data</string>
-    <string name="SingOut">User Data</string>
+    <string name="SingOut">Sign Out</string>
 
 </resources>
