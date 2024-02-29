@@ -111,5 +111,10 @@
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="fcm_message">FCM Message</string>
     <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
-
+    <string name="Sing_in">Datos del usuario</string>
+    <string name="nameLayer">Nombre:</string>
+    <string name="emailLayer">E-mail:</string>
+    <string name="userData">Datos del usuario</string>
+    <string name="SingOut">Cerrar sesión</string>
+    <string name="disconnectAccount">Desconectar cuenta</string>
 </resources>

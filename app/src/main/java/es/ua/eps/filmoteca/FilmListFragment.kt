@@ -27,6 +27,11 @@ import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
 import com.google.firebase.analytics.logEvent
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat.finishAffinity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import es.ua.eps.filmoteca.databinding.FragmentFilmDataBinding
 import es.ua.eps.filmoteca.databinding.FragmentFilmListBinding
 import kotlin.ClassCastException
@@ -49,6 +54,8 @@ class FilmListFragment : ListFragment() {
     private val MOVIE_RESULT = 1
     private lateinit var firebaseService : MyFirebaseMessagingService
 
+    lateinit var gso : GoogleSignInOptions
+    lateinit var gsc : GoogleSignInClient
 
     interface OnItemSelectedListener {
         fun onItemSelected(position: Int)
@@ -67,6 +74,12 @@ class FilmListFragment : ListFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        gsc = GoogleSignIn.getClient(activity as Activity, gso)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -248,6 +261,22 @@ class FilmListFragment : ListFragment() {
                 addNewFilmToList()
                 return true
             }
+            R.id.userData ->{
+                val intent = Intent(activity, UserInfoActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.MenuSingOut ->{
+
+                gsc.signOut()
+                goSingIn()
+                return true
+            }
+            R.id.MenuDisconnect ->{
+                gsc.revokeAccess()
+                finishAffinity(activity as Activity)
+                return true
+            }
             R.id.about ->{
                 val intent = Intent(activity, AboutActivity::class.java)
                 startActivity(intent)
@@ -277,7 +306,6 @@ class FilmListFragment : ListFragment() {
 
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         @Suppress("DEPRECATION")
         super.onActivityResult(requestCode, resultCode, data)
@@ -293,5 +321,10 @@ class FilmListFragment : ListFragment() {
         }
     }
 
+    private fun goSingIn() {
 
+        val intent = Intent(activity, User_Sing_In_Activity::class.java)
+        startActivity(intent)
+        activity?.finish()
+    }
 }
