@@ -2,10 +2,13 @@ package es.ua.eps.filmoteca
 
 import android.Manifest
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Debug
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -13,11 +16,14 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.ktx.messaging
 import es.ua.eps.filmoteca.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), FilmListFragment.OnItemSelectedListener {
-
+    lateinit var  prefs : SharedPreferences
+    private val firebaseService : MyFirebaseMessagingService = MyFirebaseMessagingService()
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { isGranted: Boolean ->
@@ -38,8 +44,11 @@ class MainActivity : AppCompatActivity(), FilmListFragment.OnItemSelectedListene
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState != null) return
+        prefs  = getSharedPreferences("firebasePrefs", Context.MODE_PRIVATE)
 
+
+        if (savedInstanceState != null) return
+        firebaseService.setContext(this)
         registrarDispositivo()
         askNotificationPermission();
         // Comprueba si estamos usando el layout dinámico
@@ -102,20 +111,56 @@ class MainActivity : AppCompatActivity(), FilmListFragment.OnItemSelectedListene
 
     private fun registrarDispositivo()
     {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
+        var tokenSaved : String? = prefs.getString("tokenFirebase", "none")
+        var suscribedToFilmTopic : Boolean = prefs.getBoolean("suscribedToFilmTopic", false)
+        Log.d(TAGSP, "Token SharedPR: " + tokenSaved!!)
+        Log.d(TAGSP, "Suscribe to film: " + suscribedToFilmTopic!!)
+        if (tokenSaved.equals( "none")) {
+            Log.d(TAGSP, "Inside")
 
-            // Get new FCM registration token
-            val token = task.result
+            val editor = prefs.edit()
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                    return@OnCompleteListener
+                }
 
-            // Log and toast
-            val msg = getString(R.string.msg_token_fmt, token)
-            Log.d(TAG, msg)
-            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-        })
+                // Get new FCM registration token
+                val token = task.result
+
+                // Log and toast
+                val msg = getString(R.string.msg_token_fmt, token)
+                Log.d(TAG, msg)
+                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                firebaseService.onNewToken(token)
+
+                editor.putString("tokenFirebase", token)
+                editor.apply()
+            })
+        }
+        if(!suscribedToFilmTopic)
+        {
+      /*      Firebase.messaging.subscribeToTopic("films")
+                .addOnCompleteListener{task ->
+                    var msg = "Suscribed"
+                    if(!task.isSuccessful){
+                        msg = "Suscribe failed"
+                    }
+                    Log.d(TAG, msg)
+                    Toast.makeText(baseContext,msg,Toast.LENGTH_SHORT).show()
+                }
+            val editor = prefs.edit()
+            editor.putBoolean("suscribedToFilmTopic", true)
+            editor.apply()
+
+       */
+        }
+        tokenSaved = prefs.getString("tokenFirebase", "none")
+        Log.d(TAGSP, tokenSaved!!)
+    }
+
+    companion object{
+        val TAGSP = "SHARED PREFERENCES"
     }
 
 }

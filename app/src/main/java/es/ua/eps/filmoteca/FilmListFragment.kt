@@ -46,7 +46,7 @@ class FilmListFragment : ListFragment() {
     var callback : OnItemSelectedListener? = null
     public lateinit var adapter : FilmsAdapter
     private val MOVIE_RESULT = 1
-    private val firebaseService : MyFirebaseMessagingService = MyFirebaseMessagingService()
+    private lateinit var firebaseService : MyFirebaseMessagingService
 
 
     interface OnItemSelectedListener {
@@ -72,7 +72,8 @@ class FilmListFragment : ListFragment() {
         }
         res = resources
         cont = requireContext()
-
+        firebaseService = MyFirebaseMessagingService()
+        firebaseService.setContext(cont)
         firebaseAnalytics = Firebase.analytics
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){}
     }

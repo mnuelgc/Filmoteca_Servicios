@@ -9,20 +9,20 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 //import androidx.work.OneTimeWorkRequest
 //import androidx.work.WorkManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import es.ua.eps.filmoteca.MainActivity
-import es.ua.eps.filmoteca.R
 
 //import com.google.firebase.messaging.RemoteMessage
 //import com.google.firebase.quickstart.fcm.R
 
-class MyFirebaseMessagingService : FirebaseMessagingService() {
+class MyFirebaseMessagingService() : FirebaseMessagingService() {
 
+    private lateinit var  context : Context
     /**
      * Called when message is received.
      *
@@ -51,17 +51,17 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             // Check if data needs to be processed by long running job
             if (isLongRunningJob()) {
                 // For long-running tasks (10 seconds or more) use WorkManager.
-                scheduleJob()
+                scheduleJob(remoteMessage.data)
             } else {
                 // Handle message within 10 seconds
-                handleNow()
+                handleNow(remoteMessage.data)
             }
         }
 
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
             Log.d(TAG, "Message Notification Body: ${it.body}")
-            it.body?.let { body -> sendNotification(body) }
+            it.body?.let { body -> sendNotification(it.title, body) }
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -90,17 +90,34 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     /**
      * Schedule async work using WorkManager.
      */
-    private fun scheduleJob() {
+    private fun scheduleJob(dataMap: MutableMap<String, String>) {
         // [START dispatch_job]
-        val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
-        WorkManager.getInstance(this).beginWith(work).enqueue()
+        val work = OneTimeWorkRequest.Builder(MyWorker::class.java)
+
+        val data = Data.Builder()
+
+        data.putString("type", dataMap.get("type"))
+        data.putString("title", dataMap.get("title"))
+        data.putString("director", dataMap.get("director"))
+        data.putString("year", dataMap.get("year"))
+        data.putString("genre", dataMap.get("genre"))
+        data.putString("format", dataMap.get("format"))
+        data.putString("imdbUrl", dataMap.get("imdbUrl"))
+        data.putString("comments", dataMap.get("comments"))
+
+        work.setInputData(data.build())
+
+        WorkManager.getInstance(this).beginWith(work.build()).enqueue()
+
+
         // [END dispatch_job]
     }
 
     /**
      * Handle time allotted to BroadcastReceivers.
      */
-    private fun handleNow() {
+    private fun handleNow(data: MutableMap<String, String>) {
+        manageDataToFilm(data)
         Log.d(TAG, "Short lived task is done.")
     }
 
@@ -122,7 +139,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      *
      * @param messageBody FCM message body received.
      */
-    private fun sendNotification(messageBody: String) {
+    private fun sendNotification(messageTitle: String?, messageBody: String) {
         val requestCode = 0
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -133,17 +150,20 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             PendingIntent.FLAG_IMMUTABLE,
         )
 
+        messageTitle ?: "Notificacion de la filmoteca"
+
+
         val channelId = getString(R.string.default_notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle(getString(R.string.fcm_message))
+            .setContentTitle(messageTitle)
             .setContentText(messageBody)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -159,6 +179,39 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
+    fun manageDataToFilm( data : Map<String, String>)
+    {
+        val title = data.get("title")
+        val director = data.get("director")
+        val year = data.get("year")
+        var genre = data.get("genre")
+        var format = data.get("format")
+        var imdbUrl = data.get("imdbUrl")
+        var comments = data.get("comments")
+
+        //TODO
+        //var imagesResId = R.mipmap.ic_launcher // Propiedades de la clase
+
+        var film = Film(context)
+
+        film.title = title
+        film.director = director
+        film.year = year!!.toInt()
+        film.genre = genre!!.toInt()
+        film.format = format!!.toInt()
+        film.imdbUrl = imdbUrl
+        film.comments = comments
+
+        FilmDataSource.films.add(film)
+
+        Log.d("Film", film.toString())
+
+    }
+
+    fun setContext (mContext : Context)
+    {
+        context = mContext
+    }
     companion object {
 
         private const val TAG = "MyFirebaseMsgService"
