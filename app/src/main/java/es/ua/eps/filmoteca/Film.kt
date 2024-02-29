@@ -22,7 +22,7 @@ class Film(context: Context?) {
     var imdbUrl: String? = "http://google.com"
     var comments: String? = null
     public lateinit var imageBitmap: Bitmap
-    public lateinit var imageUrl : String
+     var imageUrl : String =""
 
     init{
         if(context != null){

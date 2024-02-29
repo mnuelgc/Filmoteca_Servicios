@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import es.ua.eps.filmoteca.databinding.FragmentFilmDataBinding
 
 
@@ -183,6 +184,15 @@ class FilmDataFragment : Fragment() {
         annotation?.text = film.comments
 
         image?.setImageBitmap(film.imageBitmap)
+
+        if (!film.imageUrl.equals(""))
+        {
+            Glide.with(this).load(film.imageUrl).into(image!!)
+        }
+        else
+        {
+            image?.setImageBitmap(film.imageBitmap)
+        }
 
         directorName?.text = film.director
         year?.text = film.year.toString()

@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
 import es.ua.eps.filmoteca.databinding.ActivityFilmEditBinding
 
 
@@ -74,8 +75,15 @@ class FilmEditActivity : AppCompatActivity() {
         val formatField = binding.filmFormat
         val commentsField = binding.filmAnnotation
 
+        if (!film.imageUrl.equals(""))
+        {
+            Glide.with(this).load(film.imageUrl).into(imgfield!!)
+        }
+        else
+        {
+            imgfield?.setImageBitmap(film.imageBitmap)
+        }
 
-        imgfield?.setImageBitmap(film.imageBitmap)
         titleField.setText(FilmDataSource.films[position].title)
         directorField.setText(FilmDataSource.films[position].director)
         yearField.setText(FilmDataSource.films[position].year.toString())

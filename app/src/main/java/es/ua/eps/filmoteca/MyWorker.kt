@@ -66,7 +66,7 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : Worker(app
 
             if (finded)
             {
-                FilmDataSource.films.set(index,film)
+                FilmDataSource.films[index] = film
             }
             else{
                 FilmDataSource.films.add(film)
