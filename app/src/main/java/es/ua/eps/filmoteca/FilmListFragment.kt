@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.ActionMode
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,7 +45,7 @@ private lateinit var firebaseAnalytics: FirebaseAnalytics
  */
 class FilmListFragment : ListFragment() {
     var callback : OnItemSelectedListener? = null
-    public lateinit var adapter : FilmsAdapter
+
     private val MOVIE_RESULT = 1
     private lateinit var firebaseService : MyFirebaseMessagingService
 
@@ -143,7 +144,7 @@ class FilmListFragment : ListFragment() {
                             }
                             (list.adapter as FilmsAdapter)?.notifyDataSetChanged()
                             if (list.adapter.count<= 0){
-                                AddNewFilmToList()
+                                addNewFilmToList()
                             }
 
                             listOfIndexToRemove.clear()
@@ -212,6 +213,7 @@ class FilmListFragment : ListFragment() {
         lateinit var res : Resources
         lateinit var cont : Context
 
+        public lateinit var adapter : FilmsAdapter
 
         // TODO: Rename and change types and number of parameters
         @JvmStatic
@@ -222,6 +224,16 @@ class FilmListFragment : ListFragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+        // TODO: Rename and change types and number of parameters
+
+        fun reloadTable()
+        {
+            Log.d("ADAPTER", "ADAPTER RELOADED")
+            adapter.notifyDataSetChanged()
+        }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -233,7 +245,7 @@ class FilmListFragment : ListFragment() {
 
         when(item.itemId){
             R.id.addFilm ->{
-                AddNewFilmToList()
+                addNewFilmToList()
                 return true
             }
             R.id.about ->{
@@ -246,7 +258,7 @@ class FilmListFragment : ListFragment() {
         return false
     }
 
-    private fun  AddNewFilmToList()
+    private fun  addNewFilmToList()
     {
         val film = Film(context)
         FilmDataSource.films.add(film)
@@ -274,12 +286,12 @@ class FilmListFragment : ListFragment() {
             MOVIE_RESULT -> if (resultCode == Activity.RESULT_OK) {
                 val film: Film = FilmDataSource.films[FilmDataSource.films.size - 1]
                 adapter.notifyDataSetChanged()
-        //        firebaseService.sendNotification("Hola gente");
-
             }
             else{
                 FilmDataSource.films.removeLast();
             }
         }
     }
+
+
 }

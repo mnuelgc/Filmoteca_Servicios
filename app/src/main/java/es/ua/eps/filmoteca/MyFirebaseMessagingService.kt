@@ -104,6 +104,7 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
         data.putString("format", dataMap.get("format"))
         data.putString("imdbUrl", dataMap.get("imdbUrl"))
         data.putString("comments", dataMap.get("comments"))
+        data.putString("image", dataMap.get("image"))
 
         work.setInputData(data.build())
 

@@ -29,7 +29,15 @@ class FilmsAdapter(context: Context?, resource: Int,
               tvDirector.text = it.director
 
               it.convertImageDrawableToBitmap(context)
-              tvImage.setImageBitmap(it.imageBitmap)
+
+              if (!it.imageUrl.equals(""))
+              {
+                  tvImage.setImageBitmap(it.imageBitmap)
+              }
+              else
+              {
+                  tvImage.setImageBitmap(it.imageBitmap)
+              }
           }
           return view
       }

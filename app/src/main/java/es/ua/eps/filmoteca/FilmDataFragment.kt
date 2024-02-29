@@ -211,7 +211,7 @@ class FilmDataFragment : Fragment() {
         when (requestCode) {
             MOVIE_RESULT -> if (resultCode == Activity.RESULT_OK) {
                 val film: Film = FilmDataSource.films[positionFilm!!]
-                this.filmListFragment?.adapter?.notifyDataSetChanged()
+                FilmListFragment.adapter?.notifyDataSetChanged()
                 SetFilmData(film)
             }
         }

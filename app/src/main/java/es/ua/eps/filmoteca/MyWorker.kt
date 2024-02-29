@@ -4,6 +4,10 @@ import android.content.Context
 import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MyWorker(appContext: Context, workerParams: WorkerParameters) : Worker(appContext, workerParams) {
 
@@ -21,6 +25,7 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : Worker(app
     }
 
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun manageDataToFilm( )
     {
         val type = params.inputData.getString("type")
@@ -31,11 +36,23 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : Worker(app
         val format = params.inputData.getString("format")
         val imdbUrl = params.inputData.getString("imdbUrl")
         val comments = params.inputData.getString("comments")
+        val image = params.inputData.getString("image")
 
         //TODO
         //var imagesResId = R.mipmap.ic_launcher // Propiedades de la clase
 
         if (type.equals("add")){
+
+
+            var index = 0
+            var finded = false
+            for(peli: Film in FilmDataSource.films) {
+                if (peli.title.equals(title)) {
+                    index = FilmDataSource.films.indexOf(peli)
+                    finded = true
+                }
+            }
+
             var film = Film(applicationContext)
 
             film.title = title
@@ -45,11 +62,22 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : Worker(app
             film.format = format!!.toInt()
             film.imdbUrl = imdbUrl
             film.comments = comments
+            film.imageUrl = image ?: ""
 
-            FilmDataSource.films.add(film)
+            if (finded)
+            {
+                FilmDataSource.films.set(index,film)
+            }
+            else{
+                FilmDataSource.films.add(film)
+            }
+
 
             Log.d("Film", film.toString())
 
+            GlobalScope.launch(Dispatchers.Main) {
+                FilmListFragment.reloadTable()
+            }
             //   applicationContext.
         }
         else if (type.equals("delete"))
@@ -67,6 +95,10 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : Worker(app
                 if (finded)
                 {
                     FilmDataSource.films.removeAt(index)
+
+                    GlobalScope.launch(Dispatchers.Main) {
+                        FilmListFragment.reloadTable()
+                    }
                 }
             }
         }

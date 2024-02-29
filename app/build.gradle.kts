@@ -57,4 +57,6 @@ dependencies {
 
     implementation("androidx.work:work-runtime:2.9.0")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
 }

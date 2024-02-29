@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity(), FilmListFragment.OnItemSelectedListene
         }
         if(!suscribedToFilmTopic)
         {
-      /*      Firebase.messaging.subscribeToTopic("films")
+            Firebase.messaging.subscribeToTopic("films")
                 .addOnCompleteListener{task ->
                     var msg = "Suscribed"
                     if(!task.isSuccessful){
@@ -153,7 +153,7 @@ class MainActivity : AppCompatActivity(), FilmListFragment.OnItemSelectedListene
             editor.putBoolean("suscribedToFilmTopic", true)
             editor.apply()
 
-       */
+
         }
         tokenSaved = prefs.getString("tokenFirebase", "none")
         Log.d(TAGSP, tokenSaved!!)
