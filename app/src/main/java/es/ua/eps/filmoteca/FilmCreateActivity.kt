@@ -20,11 +20,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.Glide
-import es.ua.eps.filmoteca.databinding.ActivityFilmEditBinding
+import es.ua.eps.filmoteca.databinding.ActivityFilmCreateBinding
 
 
-class FilmEditActivity : AppCompatActivity() {
+class FilmCreateActivity : AppCompatActivity() {
 
     var imgfield: ImageView? = null
 
@@ -48,7 +47,7 @@ class FilmEditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityFilmEditBinding.inflate(layoutInflater)
+        val binding = ActivityFilmCreateBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
@@ -75,15 +74,8 @@ class FilmEditActivity : AppCompatActivity() {
         val formatField = binding.filmFormat
         val commentsField = binding.filmAnnotation
 
-        if (!film.imageUrl.equals(""))
-        {
-            Glide.with(this).load(film.imageUrl).into(imgfield!!)
-        }
-        else
-        {
-            imgfield?.setImageBitmap(film.imageBitmap)
-        }
 
+        imgfield?.setImageBitmap(film.imageBitmap)
         titleField.setText(FilmDataSource.films[position].title)
         directorField.setText(FilmDataSource.films[position].director)
         yearField.setText(FilmDataSource.films[position].year.toString())

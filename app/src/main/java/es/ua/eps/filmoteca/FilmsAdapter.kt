@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import org.w3c.dom.Text
 
 class FilmsAdapter(context: Context?, resource: Int,
@@ -29,7 +30,15 @@ class FilmsAdapter(context: Context?, resource: Int,
               tvDirector.text = it.director
 
               it.convertImageDrawableToBitmap(context)
-              tvImage.setImageBitmap(it.imageBitmap)
+
+              if (!it.imageUrl.equals(""))
+              {
+                  Glide.with(context).load(it.imageUrl).into(tvImage)
+              }
+              else
+              {
+                  tvImage.setImageBitmap(it.imageBitmap)
+              }
           }
           return view
       }

@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import es.ua.eps.filmoteca.databinding.FragmentFilmDataBinding
 
 
@@ -184,6 +185,15 @@ class FilmDataFragment : Fragment() {
 
         image?.setImageBitmap(film.imageBitmap)
 
+        if (!film.imageUrl.equals(""))
+        {
+            Glide.with(this).load(film.imageUrl).into(image!!)
+        }
+        else
+        {
+            image?.setImageBitmap(film.imageBitmap)
+        }
+
         directorName?.text = film.director
         year?.text = film.year.toString()
 
@@ -211,7 +221,7 @@ class FilmDataFragment : Fragment() {
         when (requestCode) {
             MOVIE_RESULT -> if (resultCode == Activity.RESULT_OK) {
                 val film: Film = FilmDataSource.films[positionFilm!!]
-                this.filmListFragment?.adapter?.notifyDataSetChanged()
+                FilmListFragment.adapter?.notifyDataSetChanged()
                 SetFilmData(film)
             }
         }

@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.ActionMode
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,9 +20,15 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.CheckBox
 import android.widget.ListView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.ListFragment
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.analytics
+import com.google.firebase.analytics.logEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.finishAffinity
-import androidx.fragment.app.ListFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -33,6 +41,8 @@ import kotlin.ClassCastException
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+private lateinit var firebaseAnalytics: FirebaseAnalytics
+
 /**
  * A simple [Fragment] subclass.
  * Use the [FilmListFragment.newInstance] factory method to
@@ -40,7 +50,9 @@ private const val ARG_PARAM2 = "param2"
  */
 class FilmListFragment : ListFragment() {
     var callback : OnItemSelectedListener? = null
-    public lateinit var adapter : FilmsAdapter
+
+    private val MOVIE_RESULT = 1
+    private lateinit var firebaseService : MyFirebaseMessagingService
 
     lateinit var gso : GoogleSignInOptions
     lateinit var gsc : GoogleSignInClient
@@ -52,6 +64,12 @@ class FilmListFragment : ListFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+
+    private val startForResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult -> onActivityResult(MOVIE_RESULT, result.resultCode, result.data) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +86,10 @@ class FilmListFragment : ListFragment() {
         }
         res = resources
         cont = requireContext()
+        firebaseService = MyFirebaseMessagingService()
+        firebaseService.setContext(cont)
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){}
     }
 
     override fun onCreateView(
@@ -135,7 +157,7 @@ class FilmListFragment : ListFragment() {
                             }
                             (list.adapter as FilmsAdapter)?.notifyDataSetChanged()
                             if (list.adapter.count<= 0){
-                                AddNewFilmToList()
+                                addNewFilmToList()
                             }
 
                             listOfIndexToRemove.clear()
@@ -204,6 +226,7 @@ class FilmListFragment : ListFragment() {
         lateinit var res : Resources
         lateinit var cont : Context
 
+        public lateinit var adapter : FilmsAdapter
 
         // TODO: Rename and change types and number of parameters
         @JvmStatic
@@ -214,6 +237,16 @@ class FilmListFragment : ListFragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+        // TODO: Rename and change types and number of parameters
+
+        fun reloadTable()
+        {
+            Log.d("ADAPTER", "ADAPTER RELOADED")
+            adapter.notifyDataSetChanged()
+        }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -225,7 +258,7 @@ class FilmListFragment : ListFragment() {
 
         when(item.itemId){
             R.id.addFilm ->{
-                AddNewFilmToList()
+                addNewFilmToList()
                 return true
             }
             R.id.userData ->{
@@ -254,12 +287,40 @@ class FilmListFragment : ListFragment() {
         return false
     }
 
-    private fun  AddNewFilmToList()
+    private fun  addNewFilmToList()
     {
         val film = Film(context)
         FilmDataSource.films.add(film)
-        adapter.notifyDataSetChanged()
+
+        val intentCreate = Intent(activity, FilmCreateActivity::class.java)
+
+        val positionFilm = FilmDataSource.films.size - 1
+        intentCreate.putExtra(FilmDataFragment.EXTRA_FILM_ID, positionFilm)
+
+        if (Build.VERSION.SDK_INT >= 30) {
+            startForResult.launch(intentCreate)
+        } else {
+            @Suppress("DEPRECATION")
+            startActivityForResult(intentCreate, MOVIE_RESULT)
+        }
+
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        @Suppress("DEPRECATION")
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            MOVIE_RESULT -> if (resultCode == Activity.RESULT_OK) {
+                val film: Film = FilmDataSource.films[FilmDataSource.films.size - 1]
+                adapter.notifyDataSetChanged()
+            }
+            else{
+                FilmDataSource.films.removeLast();
+            }
+        }
+    }
+
     private fun goSingIn() {
 
         val intent = Intent(activity, User_Sing_In_Activity::class.java)

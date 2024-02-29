@@ -99,6 +99,7 @@
     <string name="FilmDoesntSelect">Película no seleccionada</string>
     <string name="SelectFilm">Selecciona una película</string>
 
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="Sing_in">User Data</string>
 
     <string name="nameLayer">Name:</string>
