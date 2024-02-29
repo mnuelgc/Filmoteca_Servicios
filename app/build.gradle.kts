@@ -23,6 +23,7 @@ android {
             keyAlias ="AndroidDebugKey"
             keyPassword ="android"
             storeFile = file("${rootDir}/debug.keystore")
+            storePassword ="android"
         }
     }
 
