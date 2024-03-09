@@ -108,4 +108,6 @@
     <string name="SingOut">Sign Out</string>
     <string name="disconnectAccount">Desconectar cuenta</string>
 
+    <string name="SeeInMap">See in map</string>
+
 </resources>

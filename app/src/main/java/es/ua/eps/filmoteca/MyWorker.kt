@@ -37,6 +37,8 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : Worker(app
         val imdbUrl = params.inputData.getString("imdbUrl")
         val comments = params.inputData.getString("comments")
         val image = params.inputData.getString("image")
+        val lat = params.inputData.getString("lat")
+        val long = params.inputData.getString("long")
 
         //TODO
         //var imagesResId = R.mipmap.ic_launcher // Propiedades de la clase
@@ -57,12 +59,14 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : Worker(app
 
             film.title = title
             film.director = director
-            film.year = year!!.toInt()
-            film.genre = genre!!.toInt()
-            film.format = format!!.toInt()
+            film.year = year?.toInt() ?: 0
+            film.genre = genre?.toInt() ?: 0
+            film.format = format?.toInt() ?: 0
             film.imdbUrl = imdbUrl
             film.comments = comments
             film.imageUrl = image ?: ""
+            film.lattitude = lat?.toDouble() ?: 0.0
+            film.longitude = long?.toDouble() ?: 0.0
 
             if (finded)
             {

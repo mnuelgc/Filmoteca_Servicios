@@ -22,7 +22,13 @@ class Film(context: Context?) {
     var imdbUrl: String? = "http://google.com"
     var comments: String? = null
     public lateinit var imageBitmap: Bitmap
-     var imageUrl : String =""
+    var imageUrl : String =""
+
+    //Geolocation
+
+    var lattitude : Double = 0.0;
+    var longitude : Double = 0.0;
+
 
     init{
         if(context != null){

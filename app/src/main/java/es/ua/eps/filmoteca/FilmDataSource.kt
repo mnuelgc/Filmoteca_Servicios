@@ -18,6 +18,8 @@ object FilmDataSource {
         f.imdbUrl  ="http://www.imdb.com/title/tt0088763"
         f.year = 1985
         f.convertImageDrawableToBitmap(FilmListFragment.cont)
+        f.lattitude = 34.098907
+        f.longitude = -118.327759
 
         films.add(f)
 
@@ -31,6 +33,8 @@ object FilmDataSource {
         f.imdbUrl  ="http://www.imdb.com/title/tt9362722"
         f.year = 2023
         f.convertImageDrawableToBitmap(FilmListFragment.cont)
+        f.lattitude = 40.650002
+        f.longitude = -73.949997
 
         films.add(f)
 
@@ -44,6 +48,8 @@ object FilmDataSource {
         f.imdbUrl  ="http://www.imdb.com/title/tt9362722"
         f.year = 1983
         f.convertImageDrawableToBitmap(FilmListFragment.cont)
+        f.lattitude = 21.521757
+        f.longitude = -77.781167
 
         films.add(f)
 

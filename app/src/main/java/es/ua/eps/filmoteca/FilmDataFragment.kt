@@ -7,6 +7,7 @@ import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -34,6 +35,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FilmDataFragment : Fragment() {
+
 
     var positionFilm: Int? = null
     var filmData: TextView? = null
@@ -105,6 +107,7 @@ class FilmDataFragment : Fragment() {
 
         val buttonIMBD = binding.IMDBButton
         val buttonEdit = binding.editButton
+        val buttonMap = binding.seeInMapButton
 
 
         val intentEdit = Intent(activity, FilmEditActivity::class.java)
@@ -117,6 +120,22 @@ class FilmDataFragment : Fragment() {
                 startActivity(viewIntent)
             }
 
+        }
+
+
+        buttonMap.setOnClickListener {
+            val mapIntent = Intent(activity, MapActivity::class.java)
+
+            mapIntent.putExtra(EXTRA_FILM_NAME, film.title)
+            mapIntent.putExtra(EXTRA_DIRECTOR_NAME, film.director)
+            mapIntent.putExtra(EXTRA_YEAR, film.year)
+
+            Log.d("long2", film.longitude.toString())
+            Log.d("lat2", film.longitude.toString())
+            mapIntent.putExtra(EXTRA_LONGITUDE_ID, film.longitude)
+            mapIntent.putExtra(EXTRA_LATTITUDE_ID, film.lattitude)
+
+            startActivity(mapIntent);
         }
 
         buttonEdit.setOnClickListener {
@@ -149,6 +168,14 @@ class FilmDataFragment : Fragment() {
         lateinit var cont: Context
         const val PARAM_POSICION = "PARAM_POSICION"
         const val EXTRA_FILM_ID = "EXTRA_FILM_ID"
+
+        const val EXTRA_FILM_NAME = "EXTRA_FILM_NAME"
+        const val EXTRA_DIRECTOR_NAME = "EXTRA_DIRECTOR_NAME"
+        const val EXTRA_YEAR = "EXTRA_YEAR"
+        const val EXTRA_LONGITUDE_ID = "EXTRA_LONGITUDE_ID"
+        const val EXTRA_LATTITUDE_ID = "EXTRA_LATTITUDE_ID"
+
+
 
 
         @JvmStatic

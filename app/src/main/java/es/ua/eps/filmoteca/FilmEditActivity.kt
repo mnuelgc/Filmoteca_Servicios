@@ -233,6 +233,5 @@ class FilmEditActivity : AppCompatActivity() {
            finish()
         }
         return super.onOptionsItemSelected(item)
-
     }
 }

@@ -105,6 +105,8 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
         data.putString("imdbUrl", dataMap.get("imdbUrl"))
         data.putString("comments", dataMap.get("comments"))
         data.putString("image", dataMap.get("image"))
+        data.putString("lat", dataMap.get("lat"))
+        data.putString("long", dataMap.get("long"))
 
         work.setInputData(data.build())
 
@@ -189,6 +191,8 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
         var format = data.get("format")
         var imdbUrl = data.get("imdbUrl")
         var comments = data.get("comments")
+        var lat = data.get("lat")
+        var long = data.get("long")
 
         //TODO
         //var imagesResId = R.mipmap.ic_launcher // Propiedades de la clase
@@ -202,7 +206,12 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
         film.format = format!!.toInt()
         film.imdbUrl = imdbUrl
         film.comments = comments
+        film.lattitude = lat!!.toDouble()
+        film.longitude = long!!.toDouble()
 
+
+        Log.d("Long1", film.longitude.toString())
+        Log.d("Lat1", film.lattitude.toString())
         FilmDataSource.films.add(film)
 
         Log.d("Film", film.toString())

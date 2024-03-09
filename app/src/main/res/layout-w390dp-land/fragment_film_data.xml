@@ -98,12 +98,23 @@
         android:layout_marginStart="5dp"/>
 
     <Button
+        android:id="@+id/seeInMapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SeeInMap"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/IMDBButton"
+        android:layout_marginStart="5dp"/>
+
+
+
+    <Button
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/EditFilm"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@id/IMDBButton"
+        android:layout_toEndOf="@id/seeInMapButton"
         android:layout_marginStart="5dp"/>
 
 

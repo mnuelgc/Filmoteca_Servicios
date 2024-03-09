@@ -117,4 +117,8 @@
     <string name="userData">Datos del usuario</string>
     <string name="SingOut">Cerrar sesión</string>
     <string name="disconnectAccount">Desconectar cuenta</string>
+
+
+    <string name="SeeInMap">Ver en el mapa</string>
+
 </resources>
