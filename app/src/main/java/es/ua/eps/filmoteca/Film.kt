@@ -26,8 +26,10 @@ class Film(context: Context?) {
 
     //Geolocation
 
-    var lattitude : Double = 0.0;
-    var longitude : Double = 0.0;
+    var lattitude : Double = 0.0
+    var longitude : Double = 0.0
+
+    var hasFence : Boolean = false
 
 
     init{

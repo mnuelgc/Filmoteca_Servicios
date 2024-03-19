@@ -134,6 +134,7 @@ class FilmDataFragment : Fragment() {
             Log.d("lat2", film.longitude.toString())
             mapIntent.putExtra(EXTRA_LONGITUDE_ID, film.longitude)
             mapIntent.putExtra(EXTRA_LATTITUDE_ID, film.lattitude)
+            mapIntent.putExtra(EXTRA_HAS_FENCE_ID, film.hasFence)
 
             startActivity(mapIntent);
         }
@@ -174,6 +175,7 @@ class FilmDataFragment : Fragment() {
         const val EXTRA_YEAR = "EXTRA_YEAR"
         const val EXTRA_LONGITUDE_ID = "EXTRA_LONGITUDE_ID"
         const val EXTRA_LATTITUDE_ID = "EXTRA_LATTITUDE_ID"
+        const val EXTRA_HAS_FENCE_ID = "EXTRA_HAS_FENCE_ID"
 
 
 

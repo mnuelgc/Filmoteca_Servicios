@@ -120,5 +120,9 @@
 
 
     <string name="SeeInMap">Ver en el mapa</string>
+    <string name="AddGeofence">+ Geocercado</string>
+    <string name="RemoveGeofence">- Geocercado</string>
+    <string name="lattitud">Lattitud</string>
+    <string name="longitud">Longitud</string>
 
 </resources>

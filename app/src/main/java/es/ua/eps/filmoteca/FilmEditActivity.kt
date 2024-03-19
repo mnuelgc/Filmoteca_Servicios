@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -31,6 +32,10 @@ class FilmEditActivity : AppCompatActivity() {
     val PERMISSION_USE_CAMERA = Manifest.permission.CAMERA
     val PERMISION_CAMERA_REQUEST_CODE = 1001
 
+    var  geofenceState : Boolean = false
+
+    lateinit var buttonAddGeofence : Button
+    lateinit var buttonRemoveGeofence : Button
     companion object Extra {
         const val EXTRA_FILM_ID = "EXTRA_FILM_ID"
         val IMAGE_REQUEST_CODE = 100
@@ -65,6 +70,11 @@ class FilmEditActivity : AppCompatActivity() {
         val buttonSave = binding.saveButton
         val buttonCancel = binding.cancelButton
 
+        val lattitudeField = binding.latt
+        val longField = binding.longitud
+        buttonAddGeofence = binding.addGeofence
+        buttonRemoveGeofence = binding.removeGeofence
+
 
         imgfield = binding.imgfilm
         val titleField = binding.filmTitle
@@ -74,6 +84,9 @@ class FilmEditActivity : AppCompatActivity() {
         val genreField = binding.filmGenre
         val formatField = binding.filmFormat
         val commentsField = binding.filmAnnotation
+
+        geofenceState = FilmDataSource.films[position].hasFence
+
 
         if (!film.imageUrl.equals(""))
         {
@@ -92,7 +105,11 @@ class FilmEditActivity : AppCompatActivity() {
         formatField.setSelection(FilmDataSource.films[position].format)
         commentsField.setText(FilmDataSource.films[position].comments)
 
+        lattitudeField.setText(FilmDataSource.films[position].lattitude.toString())
+        longField.setText(FilmDataSource.films[position].longitude.toString())
 
+
+        updateGeofenceButton()
         buttonSelectFromGallery.setOnClickListener{
             pickImageGallery()
         }
@@ -116,6 +133,10 @@ class FilmEditActivity : AppCompatActivity() {
             FilmDataSource.films[position].format = formatField.selectedItemPosition
             FilmDataSource.films[position].comments = commentsField.text.toString()
 
+            FilmDataSource.films[position].lattitude = lattitudeField.text.toString().toDouble()
+            FilmDataSource.films[position].longitude = longField.text.toString().toDouble()
+            FilmDataSource.films[position].hasFence = geofenceState
+
 
             setResult(Activity.RESULT_OK)
 
@@ -125,6 +146,17 @@ class FilmEditActivity : AppCompatActivity() {
         buttonCancel.setOnClickListener {
             setResult(Activity.RESULT_CANCELED)
             finish()
+        }
+
+
+        buttonAddGeofence.setOnClickListener{
+            geofenceState = true
+            updateGeofenceButton()
+
+        }
+        buttonRemoveGeofence.setOnClickListener {
+            geofenceState= false
+            updateGeofenceButton()
         }
     }
 
@@ -233,5 +265,19 @@ class FilmEditActivity : AppCompatActivity() {
            finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun updateGeofenceButton()
+    {
+        if (geofenceState)
+        {
+            buttonAddGeofence.isEnabled = false
+            buttonRemoveGeofence.isEnabled = true
+        }
+        else
+        {
+            buttonAddGeofence.isEnabled = true
+            buttonRemoveGeofence.isEnabled = false
+        }
     }
 }

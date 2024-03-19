@@ -45,7 +45,8 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="190dp"
+                android:layout_width="0dp"
+                android:layout_weight=".33"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -79,7 +80,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight=".33"
                 android:layout_height="190dp"
                 android:orientation="vertical">
 
@@ -107,10 +109,63 @@
                     android:hint="@string/Annotations" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="190dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/latt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5"
+                        android:hint="@string/lattitud" />
+                    <EditText
+                        android:id="@+id/longitud"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5"
+                        android:hint="@string/longitud" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/addGeofence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:backgroundTint="@color/green"
+                        android:layout_weight="1"
+                        android:text="@string/AddGeofence" />
+
+                    <Button
+                        android:id="@+id/removeGeofence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/red"
+
+                        android:text="@string/RemoveGeofence" />
+                </LinearLayout>
+
+            </LinearLayout>
+
 
         </LinearLayout>
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

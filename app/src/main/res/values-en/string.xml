@@ -110,4 +110,7 @@
 
     <string name="SeeInMap">See in map</string>
 
+    <string name="AddGeofence">+ Geofence</string>
+    <string name="RemoveGeofence">- Geofence</string>
+
 </resources>

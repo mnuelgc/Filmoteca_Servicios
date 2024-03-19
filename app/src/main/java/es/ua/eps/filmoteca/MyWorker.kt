@@ -39,6 +39,7 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : Worker(app
         val image = params.inputData.getString("image")
         val lat = params.inputData.getString("lat")
         val long = params.inputData.getString("long")
+        val hasFence = params.inputData.getString("fence")
 
         //TODO
         //var imagesResId = R.mipmap.ic_launcher // Propiedades de la clase
@@ -67,6 +68,8 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : Worker(app
             film.imageUrl = image ?: ""
             film.lattitude = lat?.toDouble() ?: 0.0
             film.longitude = long?.toDouble() ?: 0.0
+            film.hasFence = hasFence?.toBoolean() ?: false
+
 
             if (finded)
             {

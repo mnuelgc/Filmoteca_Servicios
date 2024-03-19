@@ -107,6 +107,7 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
         data.putString("image", dataMap.get("image"))
         data.putString("lat", dataMap.get("lat"))
         data.putString("long", dataMap.get("long"))
+        data.putString("fence", dataMap.get("fence"))
 
         work.setInputData(data.build())
 
@@ -193,6 +194,7 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
         var comments = data.get("comments")
         var lat = data.get("lat")
         var long = data.get("long")
+        var fence = data.get("fence")
 
         //TODO
         //var imagesResId = R.mipmap.ic_launcher // Propiedades de la clase
@@ -208,6 +210,7 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
         film.comments = comments
         film.lattitude = lat!!.toDouble()
         film.longitude = long!!.toDouble()
+        film.hasFence = fence!!.toBoolean() ?: false
 
 
         Log.d("Long1", film.longitude.toString())

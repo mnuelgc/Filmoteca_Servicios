@@ -20,6 +20,7 @@ object FilmDataSource {
         f.convertImageDrawableToBitmap(FilmListFragment.cont)
         f.lattitude = 34.098907
         f.longitude = -118.327759
+        f.hasFence = false
 
         films.add(f)
 
@@ -35,6 +36,7 @@ object FilmDataSource {
         f.convertImageDrawableToBitmap(FilmListFragment.cont)
         f.lattitude = 40.650002
         f.longitude = -73.949997
+        f.hasFence = true
 
         films.add(f)
 
@@ -50,6 +52,7 @@ object FilmDataSource {
         f.convertImageDrawableToBitmap(FilmListFragment.cont)
         f.lattitude = 21.521757
         f.longitude = -77.781167
+        f.hasFence = true
 
         films.add(f)
 
