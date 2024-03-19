@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
@@ -45,6 +46,8 @@ class MainActivity : AppCompatActivity(), FilmListFragment.OnItemSelectedListene
         setContentView(binding.root)
 
         prefs  = getSharedPreferences("firebasePrefs", Context.MODE_PRIVATE)
+
+
 
 
         if (savedInstanceState != null) return
